@@ -1,11 +1,26 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 
+
+#
+#
+#
+#
+#
+#
+#
+
+@app.route("currency_request")
+def currency_request("get-currencies"):
+
+
+    return "Implement."
+
 @app.route("/")
 def greet():
-    return "<h1> Greetings, programmer! </h1> "
+    return render_template('hello.html')
+
 
 if __name__ == '__main__':
-
     app.run(debug=True)
