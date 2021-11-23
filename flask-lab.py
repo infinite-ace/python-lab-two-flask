@@ -17,9 +17,8 @@ app = Flask(__name__)
 def currency_request():
     r = requests.get('https://open.er-api.com/v6/latest/USD')
     json = r.json()
-    print(json)
 
-    return json
+    return json['rates']
 
 
 @app.route("/")
