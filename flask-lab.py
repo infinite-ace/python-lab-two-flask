@@ -13,17 +13,31 @@ app = Flask(__name__)
 # r = requests.get('https://httpbin.org/get', params=payload)
 
 
-@app.route("/currency_request")
-def currency_request():
+@app.route("/currency_request/<amount>/<currency_from>/<currency_to>")
+def currency_request(currency_from, currency_to, amount):
+    request_url = 'https://open.er-api.com/v6/latest/' + currency_to
+    r = requests.get(request_url)
+    json = r.json()
+
+    rate = json['rates'][currency_from]
+
+    result = rate * int(amount)
+
+    return render_template('conversion.html',
+                           amount=amount,
+                           rate=str(rate),
+                           currency_from=currency_from,
+                           currency_to=currency_to,
+                           result=str(result)
+                           )
+
+
+@app.route("/available_currencies")
+def available_currencies():
     r = requests.get('https://open.er-api.com/v6/latest/USD')
     json = r.json()
 
-    return json['rates']
-
-
-@app.route("/")
-def greet():
-    return render_template('hello.html')
+    return render_template('available_currencies.html', currencies=json['rates'].keys())
 
 
 if __name__ == '__main__':
