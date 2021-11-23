@@ -36,8 +36,12 @@ def currency_request(currency_from, currency_to, amount):
 def available_currencies():
     r = requests.get('https://open.er-api.com/v6/latest/USD')
     json = r.json()
+    currencies = json['rates'].keys()
+    currencies_list = []
+    for currency in currencies:
+        currencies_list.append(currency)
 
-    return render_template('available_currencies.html', currencies=json['rates'].keys())
+    return render_template('available_currencies.html', currencies=currencies_list)
 
 
 if __name__ == '__main__':

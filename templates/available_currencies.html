@@ -1,3 +1,6 @@
 <h1> All available currencies</h1>
-
-{{currencies}}
+<ol>
+    {%for currency in currencies%}
+        <li>{{currency}}</li>
+    {%endfor%}
+</ol>
