@@ -32,6 +32,18 @@ def currency_request(currency_from, currency_to, amount):
                            )
 
 
+@app.route("/currency_request_json/<amount>/<currency_from>/<currency_to>")
+def currency_request_json(currency_from, currency_to, amount):
+    request_url = 'https://open.er-api.com/v6/latest/' + currency_to
+    r = requests.get(request_url)
+    json = r.json()
+
+    rate = json['rates'][currency_from]
+
+    result = rate * int(amount)
+
+    return jsonify(result)
+
 @app.route("/available_currencies")
 def available_currencies():
     r = requests.get('https://open.er-api.com/v6/latest/USD')
