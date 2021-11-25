@@ -41,16 +41,16 @@ def reverse_currency_request(currency_from, currency_to, amount):
     rate = json['rates'][currency_from]
 
     # Creates black holes when uncommented.
-    rate = 0
+    # rate = 0
 
     result = ""
     try:
         result = 1 / rate * int(amount)
     except ZeroDivisionError:
-        result = "You just created another black with the mighty technique of dividing by zero." \
+        err = "You just created another black with the mighty technique of dividing by zero." \
                  " Please pick(carefully) another number to divide with."
-        print("You just created another black with the mighty technique of dividing by zero."
-              " Please pick(carefully) another number to divide with.")
+        result = err
+        print(err)
         return render_template('request_failed.html', error_message="Division By Zero. Now that's really cool!")
 
     return render_template('conversion.html',
