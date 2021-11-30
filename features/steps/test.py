@@ -1,16 +1,15 @@
+import requests
 from behave import *
 
 
-@given('we have behave installed')
-def step_impl(context):
-    pass
+@given('we have a valid api url')
+def check_url(context):
+    try:
+        response = requests.get('https://open.er-api.com/v6/latest/USD')
+        assert (response is not None)
+        print("URL is VALID and exists on the internet")
+    except requests.ConnectionError as exception:
+        assert True is False
+        print("URL is INVALID and does not exist on Internet")
 
 
-@when('we implement a test')
-def step_impl(context):
-    assert True is not False
-
-
-@then('behave will test it for us!')
-def step_impl(context):
-    assert context.failed is False

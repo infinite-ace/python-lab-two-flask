@@ -62,7 +62,6 @@ def reverse_currency_request(currency_from, currency_to, amount):
                            )
 
 
-
 @app.route("/")
 def available_currencies():
     # Use case: Changing the url to invalid will invoke the except clause
@@ -113,13 +112,10 @@ def currency_request_json(currency_from, currency_to, amount):
     result = rate * int(amount)
 
     my_json = {
-        "amount" : amount,
-        "result" : result,
-        "server_response" : 200
+        "result": result
     }
 
     return json.dumps(my_json)
-
 
 
 if __name__ == '__main__':

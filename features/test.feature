@@ -1,6 +1,4 @@
-Feature: showing off behave
+Feature: Testing the currency exchange API
 
-  Scenario: run a simple test
-     Given we have behave installed
-      When we implement a test
-      Then behave will test it for us!
+  Scenario: run the currency exchange test
+    Given we have a valid api url
