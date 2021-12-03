@@ -19,12 +19,22 @@ def currency_request(currency_from, currency_to, amount):
 
     result = rate * int(amount)
 
+    try:
+        dev_joke_request_url = 'https://v2.jokeapi.dev/joke/Any'
+        r2 = requests.get(dev_joke_request_url)
+        r2_json = r2.json()
+    except:
+        print("Joke Request failed. We should try thinking our own jokes. Please, try again later.")
+
+    joke = r2_json['setup'] + ' ' + r2_json['delivery']
+
     return render_template('conversion.html',
                            amount=amount,
                            rate=str(rate),
                            currency_from=currency_from,
                            currency_to=currency_to,
-                           result=str(result)
+                           result=str(result),
+                           joke=joke
                            )
 
 
@@ -81,7 +91,7 @@ def available_currencies():
     for currency in currencies:
         currencies_list.append(currency)
 
-    return render_template('available_currencies.html', currencies=currencies_list)
+    return render_template('available_currencies.html', currencies=currencies_list, link_to_navigate=link_to_navigate)
 
 
 #
